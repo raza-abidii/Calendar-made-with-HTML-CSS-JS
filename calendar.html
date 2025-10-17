@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Interactive calendar application with event management, task tracking, and productivity insights" />
+    <meta name="keywords" content="calendar, events, tasks, productivity, schedule, planner" />
+    <meta name="author" content="Raza Abidi" />
+    <title>Planora</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-calendar-alt"></i>
+          <h1>Planora</h1>
+        </div>
+        <nav class="nav-controls">
+          <button class="btn-icon" id="theme-toggle" title="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn-icon" id="view-toggle" title="Switch view">
+            <i class="fas fa-th"></i>
+          </button>
+          <button class="btn-primary" id="add-event-btn">
+            <i class="fas fa-plus"></i>
+            Add Event
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Quick Actions</h3>
+          <button class="sidebar-btn" id="today-btn">
+            <i class="fas fa-calendar-day"></i>
+            Go to Today
+          </button>
+          <button class="sidebar-btn" id="add-task-btn">
+            <i class="fas fa-tasks"></i>
+            Add Task
+          </button>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Upcoming Events</h3>
+          <div class="upcoming-events" id="upcoming-events">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Tasks</h3>
+          <div class="task-list" id="task-list">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Statistics</h3>
+          <div class="stats" id="stats">
+            <div class="stat-item">
+              <span class="stat-number" id="events-count">0</span>
+              <span class="stat-label">Events</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" id="tasks-count">0</span>
+              <span class="stat-label">Tasks</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" id="completion-rate">0%</span>
+              <span class="stat-label">Completed</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Calendar Section -->
+      <section class="calendar-section">
+        <div class="calendar">
+          <div class="calendar-header">
+            <div class="month-navigation">
+              <button class="nav-btn prev" title="Previous month">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <div class="date">
+                <h2 class="month-year"></h2>
+                <p class="current-date"></p>
+              </div>
+              <button class="nav-btn next" title="Next month">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="calendar-controls">
+              <div class="search-container">
+                <input type="text" id="search-events" placeholder="Search events..." />
+                <i class="fas fa-search"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+          
+          <div class="days" id="calendar-days"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Event Modal -->
+    <div class="modal" id="event-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">Add Event</h3>
+          <button class="close-btn" id="close-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="event-form">
+          <div class="form-group">
+            <label for="event-title">Event Title</label>
+            <input type="text" id="event-title" name="title" required />
+          </div>
+          <div class="form-group">
+            <label for="event-date">Date</label>
+            <input type="date" id="event-date" name="date" required />
+          </div>
+          <div class="form-group">
+            <label for="event-time">Time</label>
+            <input type="time" id="event-time" name="time" />
+          </div>
+          <div class="form-group">
+            <label for="event-description">Description</label>
+            <textarea id="event-description" name="description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="event-category">Category</label>
+            <select id="event-category" name="category">
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="health">Health</option>
+              <option value="education">Education</option>
+              <option value="social">Social</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" id="cancel-btn">Cancel</button>
+            <button type="submit" class="btn-primary">Save Event</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="task-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add Task</h3>
+          <button class="close-btn" id="close-task-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="task-form">
+          <div class="form-group">
+            <label for="task-title">Task Title</label>
+            <input type="text" id="task-title" name="title" required />
+          </div>
+          <div class="form-group">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority" name="priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="task-due-date">Due Date</label>
+            <input type="date" id="task-due-date" name="dueDate" />
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" id="cancel-task-btn">Cancel</button>
+            <button type="submit" class="btn-primary">Add Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
