@@ -48,14 +48,6 @@
 - **Task Overview**: View pending tasks at a glance
 - **Completion Metrics**: Visual progress tracking
 
-### ⌨️ **Keyboard Shortcuts**
-- `Ctrl/Cmd + N`: Create new event
-- `Ctrl/Cmd + T`: Create new task
-- `Ctrl/Cmd + D`: Toggle dark/light theme
-- `Shift + ←/→`: Navigate between months
-- `Home`: Jump to current month
-- `Escape`: Close open modals
-
 ### 💾 **Data Persistence**
 - **Local Storage**: All data persists between browser sessions
 - **No Server Required**: Fully client-side application
